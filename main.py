@@ -2,30 +2,53 @@
 #-*- coding: utf-8 -*-
 from Tkinter import *
 from banco import *
+import tkMessageBox
 
-class Execs():
+class Execs:
+    def __init__(self):
+        
+        ###  FUNCÃO RESPONSÁVEL POR CHAMAR MÉTODOS DE OUTRAS EXTENÇÕES ###
+
+        self.findFunc = Banco_Sqlite()
+
     def add_usuario(self):
-        print("O nome do usuário é %s o e-mail é %s"%(self.nome.get(), self.email.get()))
+        
 
-        print("Função chamado com sucesso!")
+        if self.nome.get() == "":
+            tkMessageBox.showinfo("Aviso","O nome de usuário está vazio!")
+            return False
 
-        return self.destruir_janela()
+        if self.senha.get() == "":
+            tkMessageBox.showinfo("Aviso","A senha está vazia!")
+            return False
+
+        if self.email.get() == "":
+            tkMessageBox.showinfo("Aviso","O endereço de e-mail está vazio!")
+            return False
+
+        else:
+            self.findFunc.criar_Novo_Usuario(nome=self.nome.get(), email=self.email.get(), senha=self.senha.get(), funcao="admin")
+            
     
     def add_cliente(self):
-        self.findFunc = Banco_Sqlite()
-        self.findFunc.criar_Tabela(nome=self.nome.get(), sobrenome=self.sobrenome.get(), cidade=self.cidade.get(), estado=self.estado.get(), bairro=self.bairro.get(), rua=self.rua.get())
-        print("Cliente adicionado com sucesso!")
+        
+        self.findFunc.criar_Novo_Cliente(nome=self.nome.get(), sobrenome=self.sobrenome.get(), cidade=self.cidade.get(), estado=self.estado.get(), bairro=self.bairro.get(), rua=self.rua.get())
+        tkMessageBox.showinfo("Aviso","Cliente Cadastrado com Sucesso!")
         return self.destruir_janela()
 
     def add_produto(self):
-        print("Produto adicionado com sucesso!")
+        self.findFunc.add_Novo_Produto(prod_nome=self.nome_Produto.get(), prod_numero=self.id_Produto.get(), prod_categoria=self.categoria_Produto.get(), prod_barras=self.codigo_Barras.get())
+        tkMessageBox.showinfo("Aviso","Produto Cadastrado com Sucesso!")
         return self.destruir_janela()
 
 class Actions(Execs):
     def adcionar_usuario(self):
-        self.jan = Tk()
+        self.jan = Toplevel()
+        self.jan.focus_force()
+        self.jan.transient(root)
+        self.jan.grab_set()
         self.jan.title("Cadastrar novo usuário")
-        self.jan.geometry("500x150+80+100")
+        self.jan.geometry("500x150+230+130")
 
         #INPUTS
         self.label_nome = Label(self.jan, text="*Nome do Usuario") #Nome de usuário
@@ -54,9 +77,12 @@ class Actions(Execs):
         self.buttonJan.grid(column=1)
 
     def adcionar_cliente(self):
-        self.jan = Tk()
+        self.jan = Toplevel()
+        self.jan.focus_force()
+        self.jan.transient(root)
+        self.jan.grab_set()
         self.jan.title("Cadastrar novo cliente")
-        self.jan.geometry("500x210+80+100")
+        self.jan.geometry("500x210+230+130")
 
         #INPUTS
         self.label_nome = Label(self.jan, text="*Nome do Cliente")
@@ -102,9 +128,12 @@ class Actions(Execs):
         self.cadastrar.grid(row=7, column=1)
         
     def adcionar_produto(self):
-        self.jan = Tk()
+        self.jan = Toplevel()
+        self.jan.focus_force()
+        self.jan.transient(root)
+        self.jan.grab_set()
         self.jan.title("Adicionar novo Produto")
-        self.jan.geometry("393x200+80+100")
+        self.jan.geometry("393x200+293+130")
 
         # ADCIONAR INPUTS e LABEL
         self.nome_Produto = Entry(self.jan)
@@ -151,8 +180,18 @@ class Actions(Execs):
         self.cancel.grid(row=4, column=2)
         
     def efetuar_venda(self):
-        print("Efetuar Venda - Ainda em construção")
+        self.jan = Toplevel()
+        self.jan.focus_force()
+        self.jan.transient(root)
+        self.jan.grab_set()
+        self.jan.title("Nova Venda")
+        self.jan.geometry("300x150+320+130")
 
+
+        self.label = Label(self.jan, text="Vamos fazer uma nova venda!", font="Ubuntu 17")
+        self.label.pack()
+
+  
     def destruir_janela(self):
         self.jan.destroy()
         self.jan = None
