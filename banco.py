@@ -35,17 +35,18 @@ class Banco_Sqlite():
 
         if self.verify:
             tkMessageBox.showerror("Aviso", "Usuário existente")
-            return False
+            self.jane = False
+
         else:
             #self.criar_Tabela = self.cursor.execute("""
             #INSERT INTO usuarios (nome, senha, email, funcao)
             #VALUES (?, ?, ?, ?)
             #""", (self.nome, self.senha, self.email, self.funcao))
             tkMessageBox.showinfo("Aviso", "Usuário cadastrado com sucesso!")
-            return True
+            self.jane = True
 
         #self.conn.commit()
-    
+
     def criar_Novo_Cliente(self, nome, sobrenome, cidade, estado, bairro, rua):
         
         self.nome = nome

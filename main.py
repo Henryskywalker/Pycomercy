@@ -13,23 +13,32 @@ class Execs:
 
     def add_usuario(self):
         
+        self.jane = True
 
         if self.nome.get() == "":
             tkMessageBox.showinfo("Aviso","O nome de usuário está vazio!")
-            return False
+            self.jane = False
 
         if self.senha.get() == "":
             tkMessageBox.showinfo("Aviso","A senha está vazia!")
-            return False
+            self.jane = False
 
         if self.email.get() == "":
             tkMessageBox.showinfo("Aviso","O endereço de e-mail está vazio!")
-            return False
-
+            self.jane = False
+        
         else:
-            self.findFunc.criar_Novo_Usuario(nome=self.nome.get(), email=self.email.get(), senha=self.senha.get(), funcao="admin")
+            #self.jane = False
+            if self.jane:
+                
+                if self.jane:
+                    self.jane = False
+                    print("cadastrado")
+                    
+                else:
+                    print("Cadastrou")
+                    self.findFunc.criar_Novo_Usuario(nome=self.nome.get(), email=self.email.get(), senha=self.senha.get(), funcao="admin")
             
-    
     def add_cliente(self):
         
         self.findFunc.criar_Novo_Cliente(nome=self.nome.get(), sobrenome=self.sobrenome.get(), cidade=self.cidade.get(), estado=self.estado.get(), bairro=self.bairro.get(), rua=self.rua.get())
